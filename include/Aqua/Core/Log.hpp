@@ -92,4 +92,7 @@ private:
 
 static Log* AquaLog;
 static Log* GameLog;
+
+static Log* Aqua();
+static Log* Game();
 }
