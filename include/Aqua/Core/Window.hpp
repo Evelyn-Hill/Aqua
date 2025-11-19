@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+namespace Aqua {
 class Window {
 public:
   // Creates a new window.
@@ -48,4 +49,4 @@ private:
   static void FocusedCallback(GLFWwindow* window, int focused);
   void HandleFocusChanged(int focused);
 };
-
+}

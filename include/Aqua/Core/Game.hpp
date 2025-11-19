@@ -1,3 +1,4 @@
+namespace Aqua {
 class Game {
 public:
 	Game(const char* title);
@@ -7,15 +8,17 @@ public:
 
 	~Game();
 
-	void Init();
-
+	virtual void Init();
+	
 	// Consistent time update.
-	void Tick();
-
+	virtual void Tick();
 	// Fast as possible update.
-	void Update();
+	virtual void Update();
+
 	void Render();
-	void Shutdown();
+
+	virtual void Shutdown();
 private:
 	const char* title;
 };
+}

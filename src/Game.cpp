@@ -1,25 +1,16 @@
 #include <Aqua/Core/Game.hpp>
 
+namespace Aqua {
 Game::Game(const char* title) {
 	this->title = title;
 }
 
 Game::~Game() {
-
-}
-
-void Game::Tick() {
-
-}
-
-void Game::Update() {
-
+	Shutdown();
 }
 
 void Game::Render() {
 
 }
-
-void Game::Shutdown() {
 
 }

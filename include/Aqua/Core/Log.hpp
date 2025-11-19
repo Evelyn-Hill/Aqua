@@ -2,7 +2,7 @@
 #include <utility>
 #include <iostream>
 
-
+namespace Aqua {
 class Log {
 public:
 	Log(const char* logger_name) {
@@ -42,3 +42,4 @@ private:
 		log_impl(std::forward<Args>(remaining_args)...);
 	}
 };
+}

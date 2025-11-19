@@ -1,6 +1,8 @@
 #include <Aqua/Core/Window.hpp>
 #include <Aqua/Core/Assert.hpp>
 
+namespace Aqua {
+
 Window::Window(int width, int height, const char* title) {
 	int result = glfwInit();
 	ASSERT(result == GLFW_TRUE, "Could not init glfw!");
@@ -92,4 +94,5 @@ void Window::HandleFocusChanged(int focused) {
 	} else {
 		focusedState = FocusedState::UNFOCUSED;
 	}
+}
 }

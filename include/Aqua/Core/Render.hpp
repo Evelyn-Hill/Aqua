@@ -1,0 +1,4 @@
+namespace Aqua {
+class Render {
+};
+}
