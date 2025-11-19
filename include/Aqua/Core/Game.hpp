@@ -1,3 +1,5 @@
+#include "Types.hpp"
+
 namespace Aqua {
 class Game {
 public:
@@ -11,9 +13,9 @@ public:
 	virtual void Init();
 	
 	// Consistent time update.
-	virtual void Tick();
+	virtual void Tick(f32 deltaTime);
 	// Fast as possible update.
-	virtual void Update();
+	virtual void Update(f32 deltaTime);
 
 	void Render();
 
