@@ -23,7 +23,7 @@ public:
 	void Render();
 
 private:
-	const char* title = {};
+	const char* title;
 	Window* gameWindow = {};
 		
 	f64 deltaTime= {};
