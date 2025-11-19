@@ -9,7 +9,7 @@
 #include <Aqua/Core/Log.hpp>
 
 namespace Aqua {
-using PNGMap = std::unordered_map<std::string, PNGImage>;
+using PNGMap = std::unordered_map<std::string, PNGImage*>;
 class AssetManager {
 public:
 	AssetManager(std::string assetRootFolder);
@@ -26,24 +26,24 @@ public:
 
 	LoadResult Load(AssetType type, std::string name);
 
-	//TODO: I dont love this API. You should just pass the type as a
-	// template argument and it should just work. This is fine for now. -plum
 	template<typename T>
-	T GetAsset(std::string name) {
+	T* GetAsset(std::string name) {
+		T* result = NULL;
 		if (std::is_same_v<T, PNGImage>) {
-			if (pngMap == NULL) {
-				Aqua::Log::AquaLog()->Error("PNGMap doesnt exist, cannot retrieve!");
-				return PNGImage();
-			}
-
+			ASSERT(pngMap != NULL, "PNG Map Doesnt exist!");
 			if(pngMap->contains(name)) {
-				return pngMap->at(name);
+				Aqua::Log::AquaLog()->Info("Loading PNG: ", name);
+				result = pngMap->at(name);
+			} else {
+				result = NULL;
 			}
-		} else {
-			Aqua::Log::AquaLog()->Error("Invalid asset type!");
+		} 
+		
+		if (result == NULL) {
+			Aqua::Log::AquaLog()->Error("Cannot retrieve image: ", name);
 		}
 
-		return T();
+		return result;
 	}
 
 private:

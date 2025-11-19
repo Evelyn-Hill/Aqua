@@ -30,13 +30,13 @@ AssetManager::LoadResult AssetManager::LoadPNG(std::string name) {
 		pngMap = std::make_unique<PNGMap>();
 	}
 
-	PNGImage png;
+	PNGImage* png = new PNGImage();
 	
 	std::string loadPath = std::string(assetRootFolder + name + ".png");
 
-	png.imageData = stbi_load(loadPath.c_str(), &png.width, &png.height, &png.nrChannels, 0);
+	png->imageData = stbi_load(loadPath.c_str(), &png->width, &png->height, &png->nrChannels, 0);
 
-	if (!png.imageData || !png.width || !png.height || !png.nrChannels) {
+	if (!png->imageData || !png->width || !png->height || !png->nrChannels) {
 		Aqua::Log::AquaLog()->Error("PNGERR: Could not load image: ", name);
 		return AssetManager::LoadResult::FAILURE;
 	}
