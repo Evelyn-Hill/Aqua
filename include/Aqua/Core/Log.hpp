@@ -2,8 +2,6 @@
 #include <utility>
 #include <iostream>
 
-
-
 namespace Aqua {
 
 class Log {
@@ -79,8 +77,5 @@ private:
 		log_impl(std::forward<Args>(remaining_args)...);
 	}
 };
-
-Log* Log::AquaLogger = new Log("Aqua");
-Log* Log::GameLogger = new Log("Game");
 
 }

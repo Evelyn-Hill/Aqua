@@ -9,6 +9,7 @@ add_subdirectory(vendor/glad)
 set(SRCS
 	src/Window.cpp
 	src/Game.cpp
+	src/Log.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
