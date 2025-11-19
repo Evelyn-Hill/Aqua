@@ -21,7 +21,6 @@ void Game::Run() {
 		Update(0.0);
 		Render();
 	
-
 		gameWindow->PollEvents();
 	}
 }
@@ -30,22 +29,6 @@ void Game::Render() {
 	glClearColor(0.5, 0.5, 0.5, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	gameWindow->SwapBuffers();
-}
-
-void Game::SetInitCallback(InitFunc func) {
-	Init = func;
-}
-
-void Game::SetUpdateCallback(UpdateFunc func) {
-	Update = func;
-}
-
-void Game::SetFixedUpdateCallback(FixedUpdateFunc func) {
-	FixedUpdate = func;
-}
-
-void Game::SetShutdownCallback(ShutdownFunc func) {
-	Shutdown = func;
 }
 
 }

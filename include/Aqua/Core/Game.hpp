@@ -14,28 +14,18 @@ public:
 	~Game();
 
 	void Run();
-	
-	typedef std::function<void()> InitFunc;
-	void SetInitCallback(InitFunc func);
 
-	typedef std::function<void(f32 deltaTime)> UpdateFunc;
-	void SetUpdateCallback(UpdateFunc update);
+	virtual void Init();
 
-	typedef std::function<void(f32 deltaTime)> FixedUpdateFunc;
-	void SetFixedUpdateCallback(FixedUpdateFunc update);
+	virtual void Update(f32 deltaTime);
+	virtual void FixedUpdate(f32 deltaTime);
 
-	typedef std::function<void()> ShutdownFunc;
-	void SetShutdownCallback(ShutdownFunc update);
+	virtual void Shutdown();
 
 	void Render();
 
 private:
 	const char* title;
 	Window* gameWindow;
-
-	InitFunc Init;
-	UpdateFunc Update;
-	FixedUpdateFunc FixedUpdate;
-	ShutdownFunc Shutdown;
 };
 }
