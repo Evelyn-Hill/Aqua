@@ -1,4 +1,5 @@
 #include <Aqua/Core/Types.hpp>
+#include <Aqua/Core/Log.hpp>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
