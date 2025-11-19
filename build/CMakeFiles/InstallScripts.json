@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Dev/cpp/Aqua/build/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glfw/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glfw/src/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glfw/docs/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glm/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glm/glm/cmake_install.cmake",
+		"C:/Dev/cpp/Aqua/build/vendor/glad/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
