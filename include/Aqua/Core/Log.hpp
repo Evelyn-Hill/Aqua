@@ -2,11 +2,24 @@
 #include <utility>
 #include <iostream>
 
+
+
 namespace Aqua {
+
 class Log {
 public:
 	Log(const char* name) {
 		logName = name;
+
+		if (AquaLog == NULL) 
+			AquaLog = new Log("Aqua");
+		else 
+			AquaLog->Error("Aqua log already initialized! Use Log::<Logger>() to retrieve it!");
+
+		if (GameLog == NULL)
+			GameLog = new Log(name);
+		else 
+			AquaLog->Error("Game log already initialized! Use Log::<Logger>() to retrieve it!");
 	}
 
 	~Log() {
@@ -49,9 +62,20 @@ public:
 		logLevel = level;
 	};
 
+	static Log* Aqua() {
+		return AquaLog;
+	}
+
+	static Log* Game() {
+		return GameLog;
+	}
+
 private:
 	const char* logName = "Logger";
-		
+	
+	static Log* AquaLog;
+	static Log* GameLog;
+
 	LogLevel logLevel = DEBUG;
 
 	void log_impl() {
@@ -65,4 +89,7 @@ private:
 		log_impl(std::forward<Args>(remaining_args)...);
 	}
 };
+
+static Log* AquaLog;
+static Log* GameLog;
 }

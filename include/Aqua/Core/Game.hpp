@@ -16,16 +16,21 @@ public:
 	void Run();
 	
 	virtual void Init();
-	virtual void Update(f32 deltaTime);
-	virtual void FixedUpdate(f32 deltaTime);
+	virtual void Update(f64 deltaTime);
+	virtual void FixedUpdate(f64 deltaTime);
 	virtual void Shutdown();
 
 	void Render();
 
-	Log* aqLog;
-	Log* gLog;
 private:
-	const char* title;
-	Window* gameWindow;
+	const char* title = {};
+	Window* gameWindow = {};
+		
+	f64 deltaTime= {};
+	f64 fixedDelta = {};
+
+	const f64 fixedUpdateTime = 1.0 / 60;
+	f64 fixedAccumulator = {};
+
 };
 }
