@@ -29,22 +29,21 @@ public:
 	//TODO: I dont love this API. You should just pass the type as a
 	// template argument and it should just work. This is fine for now. -plum
 	template<typename T>
-	T GetAsset(AssetType type, std::string name) {
-		switch(type) {
-			case AssetType::PNG_IMG:
-				if (pngMap == NULL) {
-					Aqua::Log::AquaLog()->Error("PNGMap doesnt exist, cannot retrieve!");
-					return NULL;
-				}
-				if(pngMap->contains(name)) {
-					return pngMap->at(name);
-				}
-				break;
-			default:
-				Aqua::Log::AquaLog()->Error("Asset type does not exist!");
+	T GetAsset(std::string name) {
+		if (std::is_same_v<T, PNGImage>) {
+			if (pngMap == NULL) {
+				Aqua::Log::AquaLog()->Error("PNGMap doesnt exist, cannot retrieve!");
+				return PNGImage();
+			}
+
+			if(pngMap->contains(name)) {
+				return pngMap->at(name);
+			}
+		} else {
+			Aqua::Log::AquaLog()->Error("Invalid asset type!");
 		}
-		
-		return NULL;
+
+		return T();
 	}
 
 private:
