@@ -4,10 +4,8 @@
 #include <unordered_map>
 #include <memory>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-
 #include <Aqua/Core/PNGImage.hpp>
+
 #include <Aqua/Core/Log.hpp>
 
 namespace Aqua {

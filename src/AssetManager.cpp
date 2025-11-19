@@ -1,6 +1,9 @@
 #include <Aqua/Core/AssetManager.hpp>
 #include <Aqua/Core/Log.hpp>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
+
 using namespace Aqua;
 
 AssetManager::AssetManager(std::string assetRootFolder) {
