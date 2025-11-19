@@ -4,16 +4,18 @@
 namespace Aqua {
 Game::Game(const char* title) {
 	this->title = title;
-
-	Log::InitLog(title);
-	Log::AquaLog()->Info("Game Initialized");
-	
+	aqLog = new Log("Aqua");
+	gLog = new Log(title);
 	gameWindow = new Window(1176, 768, title);
 }
 
 Game::~Game() {
-	Log::AquaLog()->Info("Destroying Game!");
 }
+
+void Game::Init() {};
+void Game::Update(f32 deltaTime) {};
+void Game::FixedUpdate(f32 deltaTime) {};
+void Game::Shutdown() {};
 
 void Game::Run() {
 	while (!gameWindow->ShouldClose()) {

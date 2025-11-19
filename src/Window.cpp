@@ -6,7 +6,6 @@ namespace Aqua {
 Window::Window(int width, int height, const char* title) {
 	int result = glfwInit();
 	ASSERT(result == GLFW_TRUE, "Could not init glfw!");
-	Log::AquaLog()->Info("Initialized GLFW");
 
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
@@ -15,7 +14,6 @@ Window::Window(int width, int height, const char* title) {
 
 	window = glfwCreateWindow(width, height, title, NULL, NULL);
 	ASSERT(window != NULL, "Could not create window!");
-	Log::AquaLog()->Info("Initialized Window");
 
 	glfwSetWindowUserPointer(window, this);
 	glfwSetWindowSizeCallback(window, SizeCallback);
@@ -27,7 +25,6 @@ Window::Window(int width, int height, const char* title) {
 	// Init glad
 	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	ASSERT(result != 0, "Could not load OpenGL!");
-	Log::AquaLog()->Info("Initialized Glad");
 
 	glViewport(0, 0, width, height);
 }
@@ -35,7 +32,6 @@ Window::Window(int width, int height, const char* title) {
 Window::~Window() {
 	glfwDestroyWindow(window);
 	glfwTerminate();
-	Log::AquaLog()->Info("Destroyed Window!");
 }
 
 bool Window::ShouldClose() {

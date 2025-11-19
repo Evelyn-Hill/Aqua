@@ -5,52 +5,38 @@
 namespace Aqua {
 class Log {
 public:
-	Log() {}
-
-	~Log() {
-		this->Warn("Destroying log: ", gameName);
+	Log(const char* name) {
+		logName = name;
 	}
 
-	static void InitLog(const char* gameName) {
-		aqLog = new Log();
-		aqLog->gameName = "Aqua";
-
-		gameLog = new Log();
-		gameLog->gameName = gameName;
+	~Log() {
+		this->Warn("Destroying log: ", logName);
 	}
 
 	template <typename... Args> 
 	void Info(Args&&... args) {
 		if (logLevel > LogLevel::INFO) { return; }
-		log_impl("\033[94m[", gameName, " INFO]: ", std::forward<Args>(args)...);
+		log_impl("\033[94m[", logName, " INFO]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Warn(Args&&... args) {
 		if (logLevel > LogLevel::WARN) { return; }
-		log_impl("\033[93m[", gameName, " WARN]: ", std::forward<Args>(args)...);
+		log_impl("\033[93m[", logName, " WARN]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Error(Args&&... args) {
 		if (logLevel > LogLevel::ERROR) { return; }
-		log_impl("\033[41m\033[97m[", gameName, " ERROR]: ", std::forward<Args>(args)...);
+		log_impl("\033[41m\033[97m[", logName, " ERROR]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Debug(Args&&... args) {
 		if (logLevel > LogLevel::DEBUG) { return; }
-		log_impl("\033[97m[", gameName, " DEBUG]: ", std::forward<Args>(args)...);
+		log_impl("\033[97m[", logName, " DEBUG]: ", std::forward<Args>(args)...);
 	}
-	
-	static Log* AquaLog() {
-		return aqLog;
-	}
-
-	static Log* GameLog() {
-		return gameLog;
-	}
-	
+		
 	enum LogLevel {
 		DEBUG,
 		INFO,
@@ -64,12 +50,9 @@ public:
 	};
 
 private:
-	const char* gameName = "Logger";
+	const char* logName = "Logger";
 		
 	LogLevel logLevel = DEBUG;
-
-	static Log* aqLog;
-	static Log* gameLog;
 
 	void log_impl() {
 		std::cout << "\033[0m"<< std::endl;
