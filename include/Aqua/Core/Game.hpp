@@ -24,7 +24,7 @@ public:
 
 private:
 	const char* title;
-	Window* gameWindow = {};
+	Window* gameWindow;
 		
 	f64 deltaTime= {};
 	f64 fixedDelta = {};
