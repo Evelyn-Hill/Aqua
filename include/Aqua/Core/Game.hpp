@@ -15,16 +15,16 @@ public:
 
 	void Run();
 	
-	typedef void(*InitFunc)();
+	typedef std::function<void()> InitFunc;
 	void SetInitCallback(InitFunc func);
 
-	typedef void(*UpdateFunc)(f32 deltaTime);
+	typedef std::function<void(f32 deltaTime)> UpdateFunc;
 	void SetUpdateCallback(UpdateFunc update);
 
-	typedef void(*FixedUpdateFunc)(f32 deltaTime);
+	typedef std::function<void(f32 deltaTime)> FixedUpdateFunc;
 	void SetFixedUpdateCallback(FixedUpdateFunc update);
 
-	typedef void(*ShutdownFunc)();
+	typedef std::function<void()> ShutdownFunc;
 	void SetShutdownCallback(ShutdownFunc update);
 
 	void Render();
