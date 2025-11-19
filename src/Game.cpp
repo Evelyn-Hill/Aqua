@@ -10,6 +10,7 @@ Game::Game(const char* title) {
 }
 
 Game::~Game() {
+	Game::Shutdown();
 }
 
 void Game::Init() {};
