@@ -1,0 +1,40 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "ninja-debug",
+      "displayName": "Default Debug Build",
+      "description": "Configure for a debug build using Ninja.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      }
+    },
+    {
+      "name": "ninja-release",
+      "displayName": "Default Release Build",
+      "description": "Configure for a release build using Ninja.",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-debug",
+      "displayName": "Build Debug",
+      "configurePreset": "ninja-debug",
+      "jobs": 8
+    },
+    {
+      "name": "build-release",
+      "displayName": "Build Release",
+      "configurePreset": "ninja-release",
+      "jobs": 12
+    }
+  ]
+}
