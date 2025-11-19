@@ -11,15 +11,15 @@ public:
 	Log(const char* name) {
 		logName = name;
 
-		if (AquaLog == NULL) 
-			AquaLog = new Log("Aqua");
+		if (AquaLogger == NULL) 
+			AquaLogger = new Log("Aqua");
 		else 
-			AquaLog->Error("Aqua log already initialized! Use Log::<Logger>() to retrieve it!");
+			AquaLogger->Error("Aqua log already initialized! Use Log::<Logger>() to retrieve it!");
 
-		if (GameLog == NULL)
-			GameLog = new Log(name);
+		if (GameLogger == NULL)
+			GameLogger = new Log(name);
 		else 
-			AquaLog->Error("Game log already initialized! Use Log::<Logger>() to retrieve it!");
+			AquaLogger->Error("Game log already initialized! Use Log::<Logger>() to retrieve it!");
 	}
 
 	~Log() {
@@ -62,19 +62,19 @@ public:
 		logLevel = level;
 	};
 
-	static Log* Aqua() {
-		return AquaLog;
+	static Log* AquaLog() {
+		return AquaLogger;
 	}
 
-	static Log* Game() {
-		return GameLog;
+	static Log* GameLog() {
+		return GameLogger;
 	}
 
 private:
 	const char* logName = "Logger";
 	
-	static Log* AquaLog;
-	static Log* GameLog;
+	static Log* AquaLogger;
+	static Log* GameLogger;
 
 	LogLevel logLevel = DEBUG;
 
@@ -90,9 +90,9 @@ private:
 	}
 };
 
-static Log* AquaLog;
-static Log* GameLog;
+static Log* AquaLogger;
+static Log* GameLogger;
 
-static Log* Aqua();
-static Log* Game();
+static Log* AquaLog();
+static Log* GameLog();
 }

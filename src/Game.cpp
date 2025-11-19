@@ -6,10 +6,6 @@ namespace Aqua {
 Game::Game(const char* title) {
 	this->title = title;
 	gameWindow = new Window(1176, 768, title);
-
-	deltaTime = 0;
-	fixedDelta = 0;
-	fixedAccumulator = 0;
 }
 
 Game::~Game() {
