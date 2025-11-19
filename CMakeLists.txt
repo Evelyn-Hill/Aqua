@@ -11,6 +11,6 @@ set(SRCS
 	src/Game.cpp
 )
 
-add_library(${PROJECT_NAME} SHARED ${SRCS})
+add_library(${PROJECT_NAME} STATIC ${SRCS})
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw glm glad)
 target_include_directories(${PROJECT_NAME} PUBLIC include/)
