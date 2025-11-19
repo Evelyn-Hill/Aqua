@@ -10,16 +10,6 @@ class Log {
 public:
 	Log(const char* name) {
 		logName = name;
-
-		if (AquaLogger == NULL) 
-			AquaLogger = new Log("Aqua");
-		else 
-			AquaLogger->Error("Aqua log already initialized! Use Log::<Logger>() to retrieve it!");
-
-		if (GameLogger == NULL)
-			GameLogger = new Log(name);
-		else 
-			AquaLogger->Error("Game log already initialized! Use Log::<Logger>() to retrieve it!");
 	}
 
 	~Log() {
@@ -90,9 +80,7 @@ private:
 	}
 };
 
-static Log* AquaLogger;
-static Log* GameLogger;
+Log* Log::AquaLogger = new Log("Aqua");
+Log* Log::GameLogger = new Log("Game");
 
-static Log* AquaLog();
-static Log* GameLog();
 }
