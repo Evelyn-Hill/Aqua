@@ -14,7 +14,7 @@ public:
 	~Game();
 
 	void Run();
-
+	
 	virtual void Init();
 	virtual void Update(f32 deltaTime);
 	virtual void FixedUpdate(f32 deltaTime);
@@ -22,10 +22,10 @@ public:
 
 	void Render();
 
+	Log* aqLog;
+	Log* gLog;
 private:
 	const char* title;
 	Window* gameWindow;
-	Log* aqLog;
-	Log* gLog;
 };
 }
