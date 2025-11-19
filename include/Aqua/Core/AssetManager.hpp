@@ -5,8 +5,8 @@
 #include <memory>
 
 #include <Aqua/Core/PNGImage.hpp>
-
 #include <Aqua/Core/Log.hpp>
+#include <Aqua/Core/Assert.hpp>
 
 namespace Aqua {
 using PNGMap = std::unordered_map<std::string, PNGImage*>;
