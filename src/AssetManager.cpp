@@ -42,6 +42,6 @@ AssetManager::LoadResult AssetManager::LoadPNG(std::string name) {
 	}
 
 	pngMap->emplace(name, png);
-
+	Aqua::Log::AquaLog()->Info("Loaded image: ", name);
 	return AssetManager::LoadResult::SUCCESS;
 }
