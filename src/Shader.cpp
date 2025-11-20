@@ -56,14 +56,30 @@ Aqua::Shader::Shader(std::string vertexPath, std::string fragmentPath) {
 	glShaderSource(vertex, 1, &vertexCodeCStr, NULL);
 	glShaderSource(fragment, 1, &fragmentCodeCStr, NULL);
 
-	if (!CompileShader(vertex)) { return; }
+	if (!CompileShader(vertex)) { 
+		glDeleteShader(fragment);
+		glDeleteShader(vertex);
+		return; 
+	}
 
-	if (!CompileShader(fragment)) { return; }
+	if (!CompileShader(fragment)) { 
+		glDeleteShader(fragment);
+		glDeleteShader(vertex);
+		return; 
+	}
 
-	if (!CompileProgram(vertex, fragment)) { return; }
+	if (!CompileProgram(vertex, fragment)) { 
+		glDeleteShader(fragment);
+		glDeleteShader(vertex);
+		return; 
+	}
+
+	
 	
 	Aqua::Log::AquaLog()->Info("Successfully compiled shader ", shader);
 }
+
+Aqua::Shader::~Shader() {}
 
 bool Aqua::Shader::CompileShader(GLuint shader) {
 	const int LOG_SIZE = 512;
