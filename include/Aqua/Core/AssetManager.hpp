@@ -1,49 +1,62 @@
 #pragma once
-#include <cstddef>
-#include <string>
-#include <unordered_map>
-#include <memory>
 
-#include <Aqua/Core/PNGImage.hpp>
-#include <Aqua/Core/Log.hpp>
+#include <memory>
+#include <string>
+
+#include <unordered_map>
+
 #include <Aqua/Core/Assert.hpp>
 
+#include <Aqua/Core/Log.hpp>
+#include <Aqua/Core/PNGImage.hpp>
+#include <Aqua/Core/Texture.hpp>
+
+
 namespace Aqua {
-using PNGMap = std::unordered_map<std::string, std::shared_ptr<PNGImage>>;
 class AssetManager {
 public:
-	AssetManager(std::string assetRootFolder);
-	~AssetManager();
+  using PNGMap = std::unordered_map<std::string, std::shared_ptr<PNGImage>>;
+  using TEXMap = std::unordered_map<std::string, std::shared_ptr<Texture>>;
 
-	enum AssetType {
-		PNG_IMG,
-	};
+  AssetManager(std::string assetRootFolder);
+  ~AssetManager();
 
-	enum LoadResult {
-		SUCCESS,
-		FAILURE,
-	};
+  enum AssetType {
+    PNG_IMG,
+    TEXTURE,
+  };
 
-	LoadResult Load(AssetType type, std::string name);
+  enum LoadResult {
+    SUCCESS,
+    FAILURE,
+  };
 
-	template<typename T>
-	std::shared_ptr<T> GetAsset(std::string name) {
-		if (std::is_same_v<T, PNGImage>) {
-			ASSERT(pngMap != NULL, "PNG Map Doesnt exist!");
-			if(pngMap->contains(name)) {
-				Aqua::Log::AquaLog()->Info("Loading PNG: ", name);
-				return pngMap->at(name);
-			} 
-		} else {
-			Aqua::Log::AquaLog()->Error("Invalid asset type!");
-		}
+  LoadResult Load(AssetType type, std::string name);
 
-		return NULL;
-	}
+  template <typename T> std::shared_ptr<T> GetAsset(std::string name) {
+    if (std::is_same_v<T, PNGImage>) {
+      ASSERT(pngMap != nullptr, "PNG Map Doesnt exist!");
+      if (pngMap->contains(name)) {
+        return pngMap->at(name);
+      }
+    } else if (std::is_same_v<T, Texture>) {
+      ASSERT(texMap != nullptr, "texMap doesnt exist!");
+      if (texMap->contains(name)) {
+        return texMap->at(name);
+      }
+    } else {
+      Aqua::Log::AquaLog()->Error("Invalid asset type!");
+    }
+
+    return nullptr;
+  }
 
 private:
-	std::string assetRootFolder = "assets/";
-	std::unique_ptr<PNGMap> pngMap = NULL;
-	LoadResult LoadPNG(std::string path);
+  std::string assetRootFolder = "assets/";
+  std::unique_ptr<PNGMap> pngMap = nullptr;
+  std::unique_ptr<TEXMap> texMap = nullptr;
+
+  LoadResult LoadPNG(std::string path);
+  LoadResult LoadTexture(std::string name);
 };
 }
