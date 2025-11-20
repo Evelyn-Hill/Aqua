@@ -7,39 +7,39 @@ namespace Aqua {
 class Log {
 public:
 	Log(const char* name) {
-		logName = name;
+		m_LogName = name;
 	}
 
 	~Log() {
-		this->Warn("Destroying log: ", logName);
+		this->Warn("Destroying log: ", m_LogName);
 	}
 
 	template <typename... Args> 
 	void Info(Args&&... args) {
-		if (logLevel > LogLevel::INFO) { return; }
-		log_impl("\033[94m[", logName, " INFO]: ", std::forward<Args>(args)...);
+		if (m_LogLevel > LogLevel::INFO) { return; }
+		log_impl("\033[94m[", m_LogName, " INFO]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Warn(Args&&... args) {
-		if (logLevel > LogLevel::WARN) { return; }
-		log_impl("\033[93m[", logName, " WARN]: ", std::forward<Args>(args)...);
+		if (m_LogLevel > LogLevel::WARN) { return; }
+		log_impl("\033[93m[", m_LogName, " WARN]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Error(Args&&... args) {
-		if (logLevel > LogLevel::ERROR) { return; }
-		log_impl("\033[41m\033[97m[", logName, " ERROR]: ", std::forward<Args>(args)...);
+		if (m_LogLevel > LogLevel::ERROR) { return; }
+		log_impl("\033[41m\033[97m[", m_LogName, " ERROR]: ", std::forward<Args>(args)...);
 	}
 
 	template <typename... Args> 
 	void Debug(Args&&... args) {
-		if (logLevel > LogLevel::DEBUG) { return; }
-		log_impl("\033[97m[", logName, " DEBUG]: ", std::forward<Args>(args)...);
+		if (m_LogLevel > LogLevel::DBG) { return; }
+		log_impl("\033[97m[", m_LogName, " DEBUG]: ", std::forward<Args>(args)...);
 	}
 		
-	enum LogLevel {
-		DEBUG,
+	enum class LogLevel {
+		DBG,
 		INFO,
 		WARN,
 		ERROR,
@@ -47,7 +47,7 @@ public:
 	};
 
 	void SetLogLevel(LogLevel level) {
-		logLevel = level;
+		m_LogLevel = level;
 	};
 
 	static Log* AquaLog() {
@@ -59,12 +59,12 @@ public:
 	}
 
 private:
-	const char* logName = "Logger";
+	const char* m_LogName = "Logger";
 	
 	static Log* AquaLogger;
 	static Log* GameLogger;
 
-	LogLevel logLevel = DEBUG;
+	LogLevel m_LogLevel = LogLevel::DBG;
 
 	void log_impl() {
 		std::cout << "\033[0m"<< std::endl;
@@ -72,7 +72,6 @@ private:
 
 	template <typename T, typename... Args>
 	void log_impl(T&& first_arg, Args&&... remaining_args) {
-
 		std::cout << std::forward<T>(first_arg);
 		log_impl(std::forward<Args>(remaining_args)...);
 	}
