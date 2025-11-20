@@ -9,7 +9,7 @@ set(CMAKE_CXX_EXTENSIONS ON)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/glad)
-add_subdirectory(vendor/freetype)
+#add_subdirectory(vendor/freetype)
 
 set(SRCS
 	src/Log.cpp
@@ -22,7 +22,7 @@ set(SRCS
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC glfw glm glad freetype)
+target_link_libraries(${PROJECT_NAME} PUBLIC glfw glm glad)
 
 target_include_directories(${PROJECT_NAME} PUBLIC 
 	include/
