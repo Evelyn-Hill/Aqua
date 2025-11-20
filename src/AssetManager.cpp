@@ -1,5 +1,6 @@
 #include <Aqua/Core/AssetManager.hpp>
 #include <Aqua/Core/Log.hpp>
+#include <memory>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
@@ -30,7 +31,7 @@ AssetManager::LoadResult AssetManager::LoadPNG(std::string name) {
 		pngMap = std::make_unique<PNGMap>();
 	}
 
-	PNGImage* png = new PNGImage();
+	std::shared_ptr<PNGImage> png = std::make_shared<PNGImage>();
 	
 	std::string loadPath = std::string(assetRootFolder + name + ".png");
 

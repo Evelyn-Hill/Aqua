@@ -31,6 +31,5 @@ private:
 
 	const f64 fixedUpdateTime = 1.0 / 60;
 	f64 fixedAccumulator = {};
-
 };
 }

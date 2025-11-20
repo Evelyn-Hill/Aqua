@@ -9,7 +9,7 @@
 #include <Aqua/Core/Assert.hpp>
 
 namespace Aqua {
-using PNGMap = std::unordered_map<std::string, PNGImage*>;
+using PNGMap = std::unordered_map<std::string, std::shared_ptr<PNGImage>>;
 class AssetManager {
 public:
 	AssetManager(std::string assetRootFolder);
@@ -27,23 +27,16 @@ public:
 	LoadResult Load(AssetType type, std::string name);
 
 	template<typename T>
-	T* GetAsset(std::string name) {
-		T* result = NULL;
+	std::shared_ptr<T> GetAsset(std::string name) {
 		if (std::is_same_v<T, PNGImage>) {
 			ASSERT(pngMap != NULL, "PNG Map Doesnt exist!");
 			if(pngMap->contains(name)) {
 				Aqua::Log::AquaLog()->Info("Loading PNG: ", name);
-				result = pngMap->at(name);
-			} else {
-				result = NULL;
-			}
-		} 
-		
-		if (result == NULL) {
-			Aqua::Log::AquaLog()->Error("Cannot retrieve image: ", name);
+				return pngMap->at(name);
+			} 
+		} else {
+			Aqua::Log::AquaLog()->Error("Invalid asset type!");
 		}
-
-		return result;
 	}
 
 private:
