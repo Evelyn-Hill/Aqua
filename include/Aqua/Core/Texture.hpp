@@ -1,7 +1,7 @@
 #pragma once
 #include <glad/glad.h>
-#include "PNGImage.hpp"
-#include <memory>
+#include <Aqua/Core/Types.hpp>
+#include <Aqua/Core/PNGImage.hpp>
 
 namespace Aqua {
 class Texture {
@@ -32,8 +32,7 @@ public:
 		UNSIGNED_BYTE = GL_UNSIGNED_BYTE
 	};
 
-
-	Texture(std::shared_ptr<PNGImage> img, TextureType type, TextureWrap wrap);
+	Texture(PNGImage* image, TextureType type, TextureWrap wrap);
 	~Texture();
 
 private:
@@ -43,8 +42,9 @@ private:
 	const int minFilter = GL_TEXTURE_MIN_FILTER;
 	const int magFilter = GL_TEXTURE_MAG_FILTER;
 	int wrapping = TextureWrap::REPEAT;
-
+	
 	GLuint texture;
+	PNGImage* image;
 };
 
 }

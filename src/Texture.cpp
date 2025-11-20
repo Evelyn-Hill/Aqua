@@ -1,8 +1,13 @@
 #include "Aqua/Core/PNGImage.hpp"
 #include <Aqua/Core/Texture.hpp>
+#include <Aqua/Core/Assert.hpp>
 
-Aqua::Texture::Texture(std::shared_ptr<PNGImage> img, TextureType type,
+Aqua::Texture::Texture(PNGImage* img, TextureType type,
                        TextureWrap wrap) {
+  image = img;
+
+  ASSERT(img != nullptr, "Null image data passed to texture constructor!");
+
   glGenTextures(1, &texture);
 
   glBindTexture(type, texture);
@@ -20,6 +25,9 @@ Aqua::Texture::Texture(std::shared_ptr<PNGImage> img, TextureType type,
   // leaving this in for future proofing even if it has a negative
   // impact on Dif
   glGenerateMipmap(texture);
+
 }
 
-Aqua::Texture::~Texture() {}
+Aqua::Texture::~Texture() {
+    delete image;
+}

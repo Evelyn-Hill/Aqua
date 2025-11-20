@@ -14,6 +14,5 @@ public:
 	void Use();
 private:
 	GLuint shader;
-
 };
 }

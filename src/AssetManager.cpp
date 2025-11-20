@@ -6,76 +6,90 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-
-Aqua::AssetManager::AssetManager(std::string assetRootFolder) {
+namespace Aqua {
+AssetManager::AssetManager(std::string assetRootFolder) {
 	this->assetRootFolder = assetRootFolder;
 }
 
-Aqua::AssetManager::~AssetManager() {
-	pngMap->clear();
+AssetManager::~AssetManager() {
 	texMap->clear();
+	shadMap->clear();
 }
 
-Aqua::AssetManager::LoadResult Aqua::AssetManager::Load(Aqua::AssetManager::AssetType type, std::string name) {
-	switch(type) {
-		case Aqua::AssetManager::AssetType::PNG_IMG:
-			return LoadPNG(name);
-			break;
-		case Aqua::AssetManager::AssetType::TEXTURE:
-			return LoadTexture(name);
-			break;
-		default:
-			Aqua::Log::AquaLog()->Error("Invalid asset type!");
-			return AssetManager::FAILURE;
-	}
-}
-
-Aqua::AssetManager::LoadResult Aqua::AssetManager::LoadPNG(std::string name) {	
-	if (pngMap == nullptr) {
-		pngMap = std::make_unique<PNGMap>();
-	}
-
-	std::shared_ptr<PNGImage> png = std::make_shared<PNGImage>();
+PNGImage* AssetManager::LoadPng(std::string path) {
+	PNGImage* png = new PNGImage();
 	
-	std::string loadPath = std::string(assetRootFolder + name + ".png");
+	std::string loadPath = std::string(assetRootFolder + path + ".png");
 
 	png->imageData = stbi_load(loadPath.c_str(), &png->width, &png->height, &png->nrChannels, 0);
 
 	if (!png->imageData || !png->width || !png->height || !png->nrChannels) {
-		Aqua::Log::AquaLog()->Error("PNGERR: Could not load image: ", name);
-		return AssetManager::FAILURE;
+		return nullptr;
 	}
 
-	pngMap->emplace(name, png);
-	Aqua::Log::AquaLog()->Info("Loaded image: ", name);
-	return AssetManager::SUCCESS;
+	return png;
 }
 
-Aqua::AssetManager::LoadResult Aqua::AssetManager::LoadTexture(std::string name) {
-	if (LoadPNG(name) == AssetManager::LoadResult::FAILURE) {
-		Aqua::Log::AquaLog()->Error("Could not create texture: ", name, " failed to load image!");
-		return AssetManager::FAILURE;
-	}
-		
-	std::shared_ptr<PNGImage> img = pngMap->at(name);
-
+std::shared_ptr<Texture> AssetManager::LoadTexture(std::string pngPath, std::string name) {
+	PNGImage* img = LoadPng(pngPath);
 	if (img == nullptr) {
-		Aqua::Log::AquaLog()->Error("Could not load texture: ", name);
-		return AssetManager::FAILURE;
-	};
-
-	if (texMap == nullptr) {
-		texMap = std::make_unique<TEXMap>();
+		Aqua::Log::AquaLog()->Error("Could not load png: ", pngPath);
+		return nullptr;
 	}
 
 	std::shared_ptr<Texture> tex = std::make_shared<Texture>(img, Texture::TextureType::TWOD, Texture::TextureWrap::REPEAT);
 	
 	if (tex == nullptr) {
 		Aqua::Log::AquaLog()->Error("Could not load texture: ", name);
-		return AssetManager::FAILURE;
+		return nullptr;
+	}
+
+	if (texMap == nullptr) {
+		texMap = std::make_unique<TEXMap>();
 	}
 
 	texMap->emplace(name, tex);
+	ASSERT(texMap->contains(name), "Could not insert texture into map!");
 	Aqua::Log::AquaLog()->Info("Loaded texture: ", name);
-	return AssetManager::SUCCESS;
+	return tex;
+}
+
+std::shared_ptr<Texture> AssetManager::GetTexture(std::string name) {
+	ASSERT(texMap != nullptr, "Texture Map not initialized!");
+	if (texMap->contains(name)) {
+		return texMap->at(name);
+	}
+
+	Aqua::Log::AquaLog()->Error("Invalid texture name: ", name);
+	return nullptr;
+}
+
+
+std::shared_ptr<Shader> AssetManager::LoadShader(std::string vertexPath, std::string fragmentPath, std::string name) {
+	std::shared_ptr<Shader> shader = std::make_shared<Shader>(vertexPath, fragmentPath);
+	if (shader == nullptr) {
+		Aqua::Log::AquaLog()->Error("Could not load shader: ", name);
+		return nullptr;
+	}
+
+	if (shadMap == nullptr) {
+		shadMap = std::make_unique<ShaderMap>();
+	}
+	
+	shadMap->emplace(name, shader);
+	ASSERT(shadMap->contains(name), "Could not insert shader into map!");
+	Aqua::Log::AquaLog()->Info("Loaded shader: ", name);
+	return shader;
+}
+
+std::shared_ptr<Shader> AssetManager::GetShader(std::string name) {
+	ASSERT(shadMap != nullptr, "Shader Map not initialized!");
+	if (shadMap->contains(name)) {
+		return shadMap->at(name);
+	}
+
+	Aqua::Log::AquaLog()->Error("Invalid shader name: ", name);
+	return nullptr;
+}
+ 
 }

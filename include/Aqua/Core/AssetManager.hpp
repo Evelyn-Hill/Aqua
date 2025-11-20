@@ -10,53 +10,34 @@
 #include <Aqua/Core/Log.hpp>
 #include <Aqua/Core/PNGImage.hpp>
 #include <Aqua/Core/Texture.hpp>
+#include <Aqua/Core/Shader.hpp>
 
 
 namespace Aqua {
 class AssetManager {
 public:
-  using PNGMap = std::unordered_map<std::string, std::shared_ptr<PNGImage>>;
-  using TEXMap = std::unordered_map<std::string, std::shared_ptr<Texture>>;
+  using TEXMap    = std::unordered_map<std::string, std::shared_ptr<Texture>>;
+  using ShaderMap = std::unordered_map<std::string, std::shared_ptr<Shader>>;
 
   AssetManager(std::string assetRootFolder);
   ~AssetManager();
 
-  enum AssetType {
-    PNG_IMG,
-    TEXTURE,
-  };
+  // Takes a path to a PNG image and returns an OpenGL Texturel
+  std::shared_ptr<Texture>  LoadTexture(std::string pngPath, std::string name);
+  std::shared_ptr<Shader>   LoadShader(std::string vertexPath, std::string fragmentPath, std::string name);
 
-  enum LoadResult {
-    SUCCESS,
-    FAILURE,
-  };
-
-  LoadResult Load(AssetType type, std::string name);
-
-  template <typename T> std::shared_ptr<T> GetAsset(std::string name) {
-    if (std::is_same_v<T, PNGImage>) {
-      ASSERT(pngMap != nullptr, "PNG Map Doesnt exist!");
-      if (pngMap->contains(name)) {
-        return pngMap->at(name);
-      }
-    } else if (std::is_same_v<T, Texture>) {
-      ASSERT(texMap != nullptr, "texMap doesnt exist!");
-      if (texMap->contains(name)) {
-        return texMap->at(name);
-      }
-    } else {
-      Aqua::Log::AquaLog()->Error("Invalid asset type!");
-    }
-
-    return nullptr;
-  }
+  std::shared_ptr<Texture>  GetTexture(std::string name);
+  std::shared_ptr<Shader>   GetShader(std::string name);
 
 private:
   std::string assetRootFolder = "assets/";
-  std::unique_ptr<PNGMap> pngMap = nullptr;
-  std::unique_ptr<TEXMap> texMap = nullptr;
 
-  LoadResult LoadPNG(std::string path);
-  LoadResult LoadTexture(std::string name);
+  std::unique_ptr<TEXMap>    texMap  = nullptr;
+  std::unique_ptr<ShaderMap> shadMap = nullptr;
+  
+  // This should not be used aside from as a helper function for Load Texture.
+  // FIXME: This should maybe become a unique_ptr at some point???
+  PNGImage* LoadPng(std::string path);
+
 };
 }
