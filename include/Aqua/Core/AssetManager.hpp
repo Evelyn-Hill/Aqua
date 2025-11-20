@@ -37,6 +37,8 @@ public:
 		} else {
 			Aqua::Log::AquaLog()->Error("Invalid asset type!");
 		}
+
+		return NULL;
 	}
 
 private:
