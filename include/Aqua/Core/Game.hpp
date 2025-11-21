@@ -20,7 +20,7 @@ public:
 	virtual void FixedUpdate(f64 deltaTime);
 	virtual void Shutdown();
 
-	void Render();
+	virtual void Render();
 
 private:
 	const char* title = {};
