@@ -3,6 +3,7 @@
 #include <Aqua/Core/Log.hpp>
 #include <Aqua/Core/Window.hpp>
 #include <Aqua/Core/Renderer.hpp>
+#include <Aqua/Core/AssetManager.hpp>
 
 namespace Aqua {
 class Game {
@@ -23,10 +24,12 @@ public:
 
 	virtual void Render();
 
+
 private:
 	const char* title = {};
 	Window* gameWindow = {};
 	Renderer* renderer = {};
+	AssetManager* assetManager = {};
 
 	f64 deltaTime= {};
 	f64 fixedDelta = {};
