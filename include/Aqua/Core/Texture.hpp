@@ -41,6 +41,9 @@ public:
 
 	vec2 Size();
 
+	vec2 GetSegments();
+
+	void SetSegmentation(vec2 segments);
 
 private:
 	const int textureType = TextureType::TWOD;
@@ -49,6 +52,9 @@ private:
 	const int minFilter = GL_TEXTURE_MIN_FILTER;
 	const int magFilter = GL_TEXTURE_MAG_FILTER;
 	int wrapping = TextureWrap::REPEAT;
+	
+	// used for sprite sheets.
+	vec2 sheetSegments = vec2(1, 1);
 	
 	PNGImage* image;
 	GLuint texture;

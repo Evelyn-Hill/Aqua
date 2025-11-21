@@ -79,7 +79,7 @@ void Window::FramebufferSizeCallback(GLFWwindow* window, int width, int height){
 void Window::HandleFramebufferResize(int width, int height) {
 	this->fbwidth = width;
 	this->fbheight = height;
-	glViewport(0, 0, fbwidth, fbheight);
+	//glViewport(0, 0, fbwidth, fbheight);
 }
 
 void Window::FocusedCallback(GLFWwindow* window, int focused) {

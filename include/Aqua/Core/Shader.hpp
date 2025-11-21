@@ -18,6 +18,8 @@ public:
 	void SetVec3f(std::string name, vec3 value);
 	void SetVec4f(std::string name, vec4 value);
 	void SetInt(std::string name, int value);
+	void SetFloat(std::string name, float value);
+	void SetVec2f(std::string name, vec2 value);
 private:
 	GLuint shader;
 };

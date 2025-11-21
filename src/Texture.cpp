@@ -15,7 +15,7 @@ Aqua::Texture::Texture(PNGImage* img, TextureType type,
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, minFilter, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, magFilter, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, magFilter, GL_NEAREST);
 
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
                img->width, img->height, 0, GL_RGBA,
@@ -39,5 +39,13 @@ void Aqua::Texture::Bind() {
 
 vec2 Aqua::Texture::Size() {
   return vec2((float)image->width, (float)image->height);
+}
+
+vec2 Aqua::Texture::GetSegments() {
+  return sheetSegments;
+}
+
+void Aqua::Texture::SetSegmentation(vec2 segments) {
+  sheetSegments = segments;
 }
 

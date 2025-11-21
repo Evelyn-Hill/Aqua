@@ -29,6 +29,8 @@ void Game::Run() {
 		auto currentTime = Clock::now();
 		deltaTime = std::chrono::duration<f64>(currentTime - lastFrameTime).count();
 
+		time += deltaTime;
+
 		lastFrameTime = currentTime;
 		fixedAccumulator -= deltaTime;
 

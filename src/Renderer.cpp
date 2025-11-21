@@ -48,15 +48,20 @@ void Aqua::Renderer::DrawSprite(Texture* texture, vec2 pos, vec2 scale, float ro
 
 	mat4 model = mat4(1.0);
 
-	model = glm::translate(model, vec3(pos, 0.0f));
-	model = glm::translate(model, vec3(0.5f * scale.x, 0.5 * scale.y, 0.0f));
-	model = glm::rotate(model, glm::radians(rotation), glm::vec3(0, 0, 1));
-	model = glm::translate(model, vec3(-0.5f * scale.x, -0.5 * scale.y, 0.0f));
+	vec2 scalePostSegment = scale / texture->GetSegments();
 
-	model = glm::scale(model, glm::vec3(scale, 0));
+	model = glm::translate(model, vec3(pos, 0.0f));
+	model = glm::translate(model, vec3(0.5f * scalePostSegment.x, 0.5 * scalePostSegment.y, 0.0f));
+	model = glm::rotate(model, glm::radians(rotation), glm::vec3(0, 0, 1));
+	model = glm::translate(model, vec3(-0.5f * scalePostSegment.x, -0.5 * scalePostSegment.y, 0.0f));
+
+	model = glm::scale(model, glm::vec3(scalePostSegment, 0));
 
     this->shader->SetMat4("model", model);
     this->shader->SetVec4f("spriteColor", vec4(color, 1.0f));
+	//OPTIM: This doesnt need called every frame.
+    this->shader->SetVec2f("texCoordDivisor", texture->GetSegments());
+	this->shader->SetInt("activeCell", 4);
 	
 	glActiveTexture(GL_TEXTURE0);
 	texture->Bind();
