@@ -3,25 +3,27 @@ is a cross-platform (Windows, Linux) 2d and (soon to be) 3d game framework. It i
 
 ### Included
 - Game and Window Abstractions.
+- Event Sytem (soon)
 - AssetManager.
 - Logging.
 - 2d and (soon) 3d renderer.
+- Package Format. (soon)
 
 ### Not included
 - Editor.
-- Entity System.
-- Package Format.
+- Entity System. 
 
 <hr> 
 
 ## Building Aqua
 
-Aqua relies heavily on git submodules and I reccomend you use it as a submodule in your own project.
-to clone aqua with submodules included use
+Aqua relies **heavily** on git submodules and I reccomend you use it as a submodule in your own project.
+to clone aqua with submodules included use -
 <br>
 `git clone --recurse-submodules https://github.com/Evelyn-Hill/Aqua.git`
 <br> 
 then run
 <br>
-`cmake -B build`
-`cmake --build build`
+`cmake --preset ninja-debug`
+<br>
+`cmake --build build/`
