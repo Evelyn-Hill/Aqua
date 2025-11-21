@@ -16,8 +16,8 @@
 namespace Aqua {
 class AssetManager {
 public:
-  using TEXMap    = std::unordered_map<std::string, Texture>;
-  using ShaderMap = std::unordered_map<std::string, Shader>;
+  using TEXMap    = std::unordered_map<std::string, Texture*>;
+  using ShaderMap = std::unordered_map<std::string, Shader*>;
 
   AssetManager();
   ~AssetManager();

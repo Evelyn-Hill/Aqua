@@ -40,9 +40,10 @@ void Game::Run() {
 			fixedAccumulator = fixedUpdateTime;
 			FixedUpdate(fixedDelta);
 		}
-
+		
 		gameWindow->PollEvents();
 		Render();
+		GlErrorLoop();
 	}
 }
 
@@ -50,6 +51,13 @@ void Game::Render() {
 	glClearColor(0.5, 0.5, 0.5, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 	gameWindow->SwapBuffers();
+}
+
+void Game::GlErrorLoop() {
+	GLenum error;
+	while((error = glGetError()) != GL_NO_ERROR) {
+		Aqua::Log::AquaLog()->Error("OPENGLERR: ", error);
+	}
 }
 
 }

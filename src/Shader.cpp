@@ -89,7 +89,24 @@ void Aqua::Shader::SetMat4(std::string name, mat4 value) {
 
 void Aqua::Shader::SetVec3f(std::string name, vec3 value) {
 	int location = glGetUniformLocation(shader, name.c_str());
+	if (location == -1) {
+		Aqua::Log::AquaLog()->Error("Could not find Uniform Vec3: ", name);
+	}
 	glUniform3f(location, value.x, value.y, value.z);
+}
+
+void Aqua::Shader::SetVec4f(std::string name, vec4 value) {
+	int location = glGetUniformLocation(shader, name.c_str());
+	if (location == -1) {
+		Aqua::Log::AquaLog()->Error("Could not find Uniform Vec3: ", name);
+	}
+
+	glUniform4f(location, value.x, value.y, value.z, value.w);
+}
+
+void Aqua::Shader::SetInt(std::string name, int value) {
+	int location = glGetUniformLocation(shader, name.c_str());
+	glUniform1i(location, value);
 }
 
 bool Aqua::Shader::CompileShader(GLuint shader) {

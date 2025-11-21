@@ -10,21 +10,21 @@ Aqua::Texture::Texture(PNGImage* img, TextureType type,
 
   glGenTextures(1, &texture);
 
-  glBindTexture(type, texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
 
-  glTexParameteri(type, wrapX, wrap);
-  glTexParameteri(type, wrapY, wrap);
-  glTexParameteri(type, minFilter, TextureFilering::MIPMAP_LINEAR);
-  glTexParameteri(type, magFilter, TextureFilering::LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, minFilter, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, magFilter, GL_LINEAR);
 
-  glTexImage2D(TextureType::TWOD, MipMapLevel::ZERO, ColorFormat::RGB,
-               img->width, img->height, 0, ColorFormat::RGB,
-               DataFormat::UNSIGNED_BYTE, img->imageData);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
+               img->width, img->height, 0, GL_RGBA,
+               GL_UNSIGNED_BYTE, img->imageData);
 
   // NOTE: Not sure if we need mipmaps for the current game,
   // leaving this in for future proofing even if it has a negative
   // impact on Dif
-  glGenerateMipmap(texture);
+ // glGenerateMipmap(texture);
 
 }
 

@@ -24,9 +24,12 @@ Aqua::Renderer::Renderer() {
 
 	glBindVertexArray(this->quadVAO);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (void*)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 Aqua::Renderer::~Renderer() {}
@@ -53,7 +56,7 @@ void Aqua::Renderer::DrawSprite(Texture* texture, vec2 pos, vec2 scale, float ro
 	model = glm::scale(model, glm::vec3(scale, 0));
 
     this->shader->SetMat4("model", model);
-    this->shader->SetVec3f("spriteColor", color);
+    this->shader->SetVec4f("spriteColor", vec4(color, 1.0f));
 	
 	glActiveTexture(GL_TEXTURE0);
 	texture->Bind();

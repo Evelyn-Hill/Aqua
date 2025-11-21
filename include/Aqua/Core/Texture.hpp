@@ -27,6 +27,7 @@ public:
 
 	enum ColorFormat : int {
 		RGB = GL_RGB,
+		RGBA = GL_RGBA,
 	};
 
 	enum DataFormat : int {

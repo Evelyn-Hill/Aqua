@@ -16,7 +16,8 @@ public:
 	~Game();
 
 	void Run();
-	
+		
+
 	virtual void Init();
 	virtual void Update(f64 deltaTime);
 	virtual void FixedUpdate(f64 deltaTime);
@@ -24,8 +25,7 @@ public:
 
 	virtual void Render();
 
-
-private:
+protected:
 	const char* title = {};
 	Window* gameWindow = {};
 	Renderer* renderer = {};
@@ -34,7 +34,9 @@ private:
 	f64 deltaTime= {};
 	f64 fixedDelta = {};
 
+private:
 	const f64 fixedUpdateTime = 1.0 / 60;
 	f64 fixedAccumulator = {};
+	void GlErrorLoop();
 };
 }

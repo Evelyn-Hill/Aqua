@@ -30,19 +30,18 @@ Texture* AssetManager::CreateTexture(std::string pngPath, std::string name) {
 		texMap = std::make_unique<TEXMap>();
 	}
 
-	Texture tex(img, Texture::TextureType::TWOD, Texture::TextureWrap::REPEAT);
+	Texture* tex = new Texture(img, Texture::TextureType::TWOD, Texture::TextureWrap::REPEAT);
 
-	texMap->insert(std::pair<std::string, Texture>(name, tex));
+	texMap->insert(std::pair<std::string, Texture*>(name, tex));
 	ASSERT(texMap->contains(name), "Could not insert texture into map!");
 	Aqua::Log::AquaLog()->Info("Loaded texture: ", name);
-	Texture* t = &texMap->at(name);
-	return t;
+	return texMap->at(name);
 }
 
 Texture* AssetManager::GetTexture(std::string name) {
 	ASSERT(texMap != nullptr, "Texture Map not initialized!");
 	if (texMap->contains(name)) {
-		return &texMap->at(name);
+		return texMap->at(name);
 	}
 
 	Aqua::Log::AquaLog()->Error("Invalid texture name: ", name);
@@ -50,7 +49,7 @@ Texture* AssetManager::GetTexture(std::string name) {
 }
 
 Shader* AssetManager::CreateShader(std::string vertexPath, std::string fragmentPath, std::string name) {
-	Shader shader(vertexPath, fragmentPath);
+	Shader* shader = new Shader(vertexPath, fragmentPath);
 
 	if (shadMap == nullptr) {
 		shadMap = std::make_unique<ShaderMap>();
@@ -59,16 +58,16 @@ Shader* AssetManager::CreateShader(std::string vertexPath, std::string fragmentP
 	// NOTE: This may look like a silly way of doing things when emplace exists. The reason I am using insert
 	// is due to explicit copying of the underlying data so that this stack allocated
 	// shader can be copied into the map and I can later retrieve a reference to it. -plum
-	shadMap->insert(std::pair<std::string, Shader>(name, shader));
+	shadMap->insert(std::pair<std::string, Shader*>(name, shader));
 	ASSERT(shadMap->contains(name), "Could not insert shader into map!");
-	Aqua::Log::AquaLog()->Info("Loaded shader: ", name);
-	return &shadMap->at(name);
+	//Aqua::Log::AquaLog()->Info("Loaded shader: ", name);
+	return shadMap->at(name);
 }
 
 Shader* AssetManager::GetShader(std::string name) {
 	ASSERT(shadMap != nullptr, "Shader Map not initialized!");
 	if (shadMap->contains(name)) {
-		return &shadMap->at(name);
+		return shadMap->at(name);
 	}
 
 	Aqua::Log::AquaLog()->Error("Invalid shader name: ", name);

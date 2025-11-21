@@ -16,6 +16,8 @@ public:
 
 	void SetMat4(std::string name, mat4 value);
 	void SetVec3f(std::string name, vec3 value);
+	void SetVec4f(std::string name, vec4 value);
+	void SetInt(std::string name, int value);
 private:
 	GLuint shader;
 };
