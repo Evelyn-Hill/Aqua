@@ -18,7 +18,7 @@ set(SRCS
 	src/Shader.cpp
 	src/AssetManager.cpp
 	src/Texture.cpp
-	src/Render.cpp
+	src/Renderer.cpp
 )
 
 add_library(${PROJECT_NAME} STATIC ${SRCS})
