@@ -7,8 +7,7 @@
 #include <stb/stb_image.h>
 
 namespace Aqua {
-AssetManager::AssetManager(std::string assetRootFolder) {
-	this->assetRootFolder = assetRootFolder;
+AssetManager::AssetManager() {
 }
 
 AssetManager::~AssetManager() {
@@ -19,7 +18,7 @@ AssetManager::~AssetManager() {
 PNGImage* AssetManager::LoadPng(std::string path) {
 	PNGImage* png = new PNGImage();
 	
-	std::string loadPath = std::string(assetRootFolder + path + ".png");
+	std::string loadPath = std::string(path);
 
 	png->imageData = stbi_load(loadPath.c_str(), &png->width, &png->height, &png->nrChannels, 0);
 

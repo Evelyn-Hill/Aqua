@@ -81,6 +81,17 @@ Aqua::Shader::Shader(std::string vertexPath, std::string fragmentPath) {
 
 Aqua::Shader::~Shader() {}
 
+
+void Aqua::Shader::SetMat4(std::string name, mat4 value) {
+	int location = glGetUniformLocation(shader, name.c_str());
+	glUniformMatrix4fv(location, 1, GL_FALSE, &value[0][0]);
+}
+
+void Aqua::Shader::SetVec3f(std::string name, vec3 value) {
+	int location = glGetUniformLocation(shader, name.c_str());
+	glUniform3f(location, value.x, value.y, value.z);
+}
+
 bool Aqua::Shader::CompileShader(GLuint shader) {
 	const int LOG_SIZE = 512;
 	int success;

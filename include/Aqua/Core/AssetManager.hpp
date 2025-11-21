@@ -19,7 +19,7 @@ public:
   using TEXMap    = std::unordered_map<std::string, std::shared_ptr<Texture>>;
   using ShaderMap = std::unordered_map<std::string, std::shared_ptr<Shader>>;
 
-  AssetManager(std::string assetRootFolder);
+  AssetManager();
   ~AssetManager();
 
   // Takes a path to a PNG image and returns an OpenGL Texturel

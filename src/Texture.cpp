@@ -31,3 +31,13 @@ Aqua::Texture::Texture(PNGImage* img, TextureType type,
 Aqua::Texture::~Texture() {
     delete image;
 }
+
+
+void Aqua::Texture::Bind() {
+  glBindTexture(GL_TEXTURE_2D, texture);
+}
+
+vec2 Aqua::Texture::Size() {
+  return vec2((float)image->width, (float)image->height);
+}
+

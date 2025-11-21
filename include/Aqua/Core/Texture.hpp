@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <Aqua/Core/Types.hpp>
 #include <Aqua/Core/PNGImage.hpp>
+#include <string>
 
 namespace Aqua {
 class Texture {
@@ -35,6 +36,11 @@ public:
 	Texture(PNGImage* image, TextureType type, TextureWrap wrap);
 	~Texture();
 
+	void Bind();
+
+	vec2 Size();
+
+
 private:
 	const int textureType = TextureType::TWOD;
 	const int wrapX = GL_TEXTURE_WRAP_S;
@@ -43,8 +49,9 @@ private:
 	const int magFilter = GL_TEXTURE_MAG_FILTER;
 	int wrapping = TextureWrap::REPEAT;
 	
-	GLuint texture;
 	PNGImage* image;
+	GLuint texture;
+
 };
 
 }
