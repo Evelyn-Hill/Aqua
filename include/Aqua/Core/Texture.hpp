@@ -51,7 +51,6 @@ private:
 	
 	PNGImage* image;
 	GLuint texture;
-
 };
 
 }

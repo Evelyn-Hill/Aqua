@@ -16,18 +16,19 @@
 namespace Aqua {
 class AssetManager {
 public:
-  using TEXMap    = std::unordered_map<std::string, std::shared_ptr<Texture>>;
-  using ShaderMap = std::unordered_map<std::string, std::shared_ptr<Shader>>;
+  using TEXMap    = std::unordered_map<std::string, Texture>;
+  using ShaderMap = std::unordered_map<std::string, Shader>;
 
   AssetManager();
   ~AssetManager();
 
   // Takes a path to a PNG image and returns an OpenGL Texturel
-  std::shared_ptr<Texture>  LoadTexture(std::string pngPath, std::string name);
-  std::shared_ptr<Shader>   LoadShader(std::string vertexPath, std::string fragmentPath, std::string name);
+  Texture*  CreateTexture(std::string pngPath, std::string name);
+  Shader*   CreateShader(std::string vertexPath, std::string fragmentPath, std::string name);
 
-  std::shared_ptr<Texture>  GetTexture(std::string name);
-  std::shared_ptr<Shader>   GetShader(std::string name);
+
+  Texture*  GetTexture(std::string name);
+  Shader*   GetShader(std::string name);
 
 private:
   std::string assetRootFolder = "assets/";

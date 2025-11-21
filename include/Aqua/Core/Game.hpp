@@ -2,6 +2,7 @@
 #include "Types.hpp"
 #include <Aqua/Core/Log.hpp>
 #include <Aqua/Core/Window.hpp>
+#include <Aqua/Core/Renderer.hpp>
 
 namespace Aqua {
 class Game {
@@ -25,7 +26,8 @@ public:
 private:
 	const char* title = {};
 	Window* gameWindow = {};
-		
+	Renderer* renderer = {};
+
 	f64 deltaTime= {};
 	f64 fixedDelta = {};
 
