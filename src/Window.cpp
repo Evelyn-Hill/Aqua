@@ -22,10 +22,12 @@ Window::Window(int width, int height, const char* title) {
 
 	glfwMakeContextCurrent(window);
 
+	this->width = width;
+	this->height = height;
+
 	// Init glad
 	result = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	ASSERT(result != 0, "Could not load OpenGL!");
-
 	glViewport(0, 0, width, height);
 }
 

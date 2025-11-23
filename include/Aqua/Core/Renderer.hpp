@@ -11,6 +11,8 @@ public:
 	Renderer();
 	~Renderer();
 
+	void InitRenderData(Shader* shader);
+
 	void DrawSprite(Texture* texture, vec2 pos, vec2 scale, float rotation, vec3 color);
 	void ClearColor(Color color);
 	void SetShader(Shader* shader);
@@ -18,6 +20,5 @@ private:
 	Shader* shader = nullptr;
 	GLuint quadVAO;
 	Color clearColor;
-
 };
 }

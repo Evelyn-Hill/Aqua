@@ -118,7 +118,7 @@ void Aqua::Shader::SetFloat(std::string name, float value) {
 void Aqua::Shader::SetVec2f(std::string name, vec2 value) {
 	int location = glGetUniformLocation(shader, name.c_str());
 	if (location == -1) {
-		Aqua::Log::AquaLog()->Error("Could not find Uniform Vec3: ", name);
+		Aqua::Log::AquaLog()->Error("Could not find Uniform Vec2: ", name);
 	}
 
 	glUniform2f(location, value.x, value.y);
@@ -168,5 +168,10 @@ bool Aqua::Shader::CompileProgram(GLuint vertexShader, GLuint fragmentShader) {
 }
 
 void Aqua::Shader::Use() {
+	if (shader == -1) {
+		Aqua::Log::AquaLog()->Error("Could not use shader: ", shader);
+		return;
+	}
+
 	glUseProgram(shader);
 }
