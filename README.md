@@ -27,3 +27,9 @@ then run
 `cmake --preset ninja-debug`
 <br>
 `cmake --build build/`
+
+## Contributions
+
+Aqua is open for external contributions on an extremely limited basis. If you'd like to contribute please first open a discussion
+here on github with your suggestion. Most suggestions will be denied because we have a very specific internal roadmap that we are
+shooting for. Any PR or Issue opened without first opening a discussion will be deleted/ignored.
